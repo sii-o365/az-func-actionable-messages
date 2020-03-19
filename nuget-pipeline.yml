@@ -1,0 +1,23 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+- task: DotNetCoreCLI@2
+  displayName: NuGet Pack
+  inputs:
+    command: 'pack'
+    packagesToPack: '**/*.csproj ;!**/*Example*.csproj'
+    versioningScheme: 'byBuildNumber'
+- task: DotNetCoreCLI@2
+  displayName: NuGet Push
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+    nuGetFeedType: 'internal'
+    publishVstsFeed: 'c4cd009d-f94a-4053-836f-d2f1ce6051da/8a68b6a2-a53e-47a8-bac4-462f07a0a7ab'

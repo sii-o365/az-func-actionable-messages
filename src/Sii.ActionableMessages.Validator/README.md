@@ -1,0 +1,1 @@
+﻿.NET standard rewrite of https://github.com/OfficeDev/o365-actionable-messages-utilities-for-dotnet
